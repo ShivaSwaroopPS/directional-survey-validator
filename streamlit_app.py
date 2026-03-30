@@ -61,24 +61,14 @@ st.markdown("""
 # CONFIG
 # =========================
 
-# Load database credentials from Streamlit secrets (secure, not in code)
-try:
-    DB_CONFIG = {
-        "user": st.secrets["DB_USER"],
-        "password": st.secrets["DB_PASSWORD"],
-        "host": st.secrets["DB_HOST"],
-        "port": st.secrets["DB_PORT"],
-        "service": st.secrets["DB_SERVICE"],
-    }
-except Exception:
-    # Fallback for local development only
-    DB_CONFIG = {
-        "user": "WELL_FCT_RDR",
-        "password": "qr05xN=StW?1Zb[",
-        "host": "prd.db-udmfct.ci.spgi",
-        "port": 1523,
-        "service": "udmfct",
-    }
+# Database config - hardcoded for testing
+DB_CONFIG = {
+    "user": "WELL_FCT_RDR",
+    "password": "qr05xN=StW?1Zb[",
+    "host": "prd.db-udmfct.ci.spgi",
+    "port": 1523,
+    "service": "udmfct",
+}
 
 MAPPING_FILE = r"C:\Users\shiva_swaroop_p_s\OneDrive - S&P Global\Desktop\2026\Directional_Survey\CANADA_DS Mapping file.xlsx"
 
