@@ -70,10 +70,15 @@ try:
         "port": st.secrets["DB_PORT"],
         "service": st.secrets["DB_SERVICE"],
     }
-except KeyError:
-    # Fallback for local development (remove before deploying to production)
-    st.error("⚠️ Database credentials not found. Please add secrets to Streamlit Cloud dashboard.")
-    st.stop()
+except Exception:
+    # Fallback for local development only
+    DB_CONFIG = {
+        "user": "WELL_FCT_RDR",
+        "password": "qr05xN=StW?1Zb[",
+        "host": "prd.db-udmfct.ci.spgi",
+        "port": 1523,
+        "service": "udmfct",
+    }
 
 MAPPING_FILE = r"C:\Users\shiva_swaroop_p_s\OneDrive - S&P Global\Desktop\2026\Directional_Survey\CANADA_DS Mapping file.xlsx"
 
@@ -139,6 +144,7 @@ def fetch_udm_value(uwi, column_name, table_name="well_fct.well_dir_srvy"):
             return None
         return df.iloc[0][column_name]
     except Exception as e:
+        print(f"DEBUG: fetch_udm_value error for {column_name} in {table_name}: {str(e)}")
         return None
 
 def parse_date(val):
@@ -640,7 +646,7 @@ def main():
             details_container = st.container()
             
             # Read file content into memory (will be re-used for each validator)
-            file_content = uploaded_file.getvalue().decode('utf-8')
+            file_content = uploaded_file.getvalue().decode('latin1')
             
             # Run all validators
             validators = [
