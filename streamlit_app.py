@@ -61,13 +61,19 @@ st.markdown("""
 # CONFIG
 # =========================
 
-DB_CONFIG = {
-    "user": "WELL_FCT_RDR",
-    "password": "qr05xN=StW?1Zb[",
-    "host": "prd.db-udmfct.ci.spgi",
-    "port": 1523,
-    "service": "udmfct",
-}
+# Load database credentials from Streamlit secrets (secure, not in code)
+try:
+    DB_CONFIG = {
+        "user": st.secrets["DB_USER"],
+        "password": st.secrets["DB_PASSWORD"],
+        "host": st.secrets["DB_HOST"],
+        "port": st.secrets["DB_PORT"],
+        "service": st.secrets["DB_SERVICE"],
+    }
+except KeyError:
+    # Fallback for local development (remove before deploying to production)
+    st.error("⚠️ Database credentials not found. Please add secrets to Streamlit Cloud dashboard.")
+    st.stop()
 
 MAPPING_FILE = r"C:\Users\shiva_swaroop_p_s\OneDrive - S&P Global\Desktop\2026\Directional_Survey\CANADA_DS Mapping file.xlsx"
 
